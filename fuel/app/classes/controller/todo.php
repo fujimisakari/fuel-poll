@@ -14,12 +14,15 @@ class Controller_Todo extends Controller
 			return Response::forge(View::forge('todo/add_task'));
 		}
 
-		$init_data = array(
-			'category_id' => 1,
-			'title' => Input::param('title'),
-			'note' => Input::param('note'),
-		);
-		Model_Todo_Task::do_create($init_data);
+		with_transaction(function ()
+		{
+			$init_data = array(
+				'category_id' => 1,
+				'title' => Input::param('title'),
+				'note' => Input::param('note'),
+			);
+			Model_Todo_Task::do_create($init_data);
+		});
 
 		return Response::redirect(Router::get('todo_index'));
 	}
@@ -31,24 +34,30 @@ class Controller_Todo extends Controller
 			return Response::forge(Presenter::forge('todo/edit'));
 		}
 
-		$task_id = $this->request->param('task_id');
-		$task = Model_Todo_Task::get_by_id($task_id);
-		$update_data = array(
-			'category_id' => Input::param('category_id'),
-			'title' => Input::param('title'),
-			'note' => Input::param('note'),
-		);
-		$task->do_save($update_data);
+		with_transaction(function ()
+		{
+			$task_id = $this->request->param('task_id');
+			$task = Model_Todo_Task::get_by_id($task_id);
+			$update_data = array(
+				'category_id' => Input::param('category_id'),
+				'title' => Input::param('title'),
+				'note' => Input::param('note'),
+			);
+			$task->do_save($update_data);
+		});
 
 		return Response::redirect(Router::get('todo_index'));
 	}
 
 	public function action_delete_task()
 	{
-		$task_id = $this->request->param('task_id');
-		if ($task_id) {
-			Model_Todo_Task::do_delete($task_id);
-		}
+		with_transaction(function ()
+		{
+			$task_id = $this->request->param('task_id');
+			if ($task_id) {
+				Model_Todo_Task::do_delete($task_id);
+			}
+		});
 
 		return Response::redirect('todo/index');
 	}
