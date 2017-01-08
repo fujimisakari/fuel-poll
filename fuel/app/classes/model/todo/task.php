@@ -1,6 +1,6 @@
 <?php
 
-class Model_Todo_Task extends Orm\Model
+class Model_Todo_Task extends Model_Common_Temporary
 {
 	protected static $_properties = array(
 		'id',
@@ -46,12 +46,12 @@ class Model_Todo_Task extends Orm\Model
 
 	public static function get_all()
 	{
-		return static::find('all');
+		return static::get_cache_all();
 	}
 
 	public static function get_by_id($id)
 	{
-		return static::find($id);
+		return static::get_cache($id);
 	}
 
 	public static function get_list_by_category_id($category_id)

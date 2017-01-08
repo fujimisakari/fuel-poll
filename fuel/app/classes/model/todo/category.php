@@ -1,6 +1,6 @@
 <?php
 
-class Model_Todo_Category extends Orm\Model
+class Model_Todo_Category extends Model_Common_Entity
 {
 	protected static $_properties = array(
 		'id',
@@ -24,17 +24,17 @@ class Model_Todo_Category extends Orm\Model
 
 	public static function get_all()
 	{
-		return static::find('all');
+		return static::get_cache_all();
 	}
 
 	public static function get_by_id($id)
 	{
-		return static::find($id);
+		return static::get_cache($id);
 	}
 
 	public static function get_category_list_for_select_form()
 	{
-		$all_category_list = static::find('all');
+		$all_category_list = static::get_cache_all();
 		$category_list = array();
 		foreach ($all_category_list as $category)
 		{
