@@ -23,5 +23,8 @@ require COREPATH.'bootstrap.php';
 // Initialize the framework with the config file.
 \Fuel::init('config.php');
 
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
+$dotenv->load();
+
 // load the base functions
 require APPPATH.'base.php';
