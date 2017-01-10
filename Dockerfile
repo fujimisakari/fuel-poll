@@ -10,3 +10,5 @@ RUN touch /tmp/fuel_app.log
 
 RUN apt-get update
 RUN apt-get install -y mysql-client vim net-tools telnet curl
+
+RUN docker-php-ext-install pdo pdo_mysql
