@@ -11,7 +11,8 @@ I created Todo Application to study fuelphp framework.
 ```sh
 $ cd fuel_todo
 
-# if you need to change .env
+# Create .env file and if you need to change .env
+$ mv .env.example .env
 $ vim .env
 
 $ ./composer.phar install
