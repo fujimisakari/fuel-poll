@@ -5,7 +5,7 @@ WORKDIR /usr/src/fuel-todo
 ENV DOCKER true
 
 RUN rm -rf /usr/local/etc/php-fpm.d
-RUN mkdir /var/run/php-fpm
+RUN mkdir /var/run/fuel-todo
 RUN touch /tmp/fuel_app.log
 
 RUN apt-get update
